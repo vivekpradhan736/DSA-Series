@@ -16,11 +16,13 @@ public:
         this->next = NULL;
     }
 
-    //destructor
-    ~Node() {
-        int val = this -> data;
+    // destructor
+    ~Node()
+    {
+        int val = this->data;
         cout << "Deleting Node with data " << data << endl;
-        if(next != NULL) {
+        if (next != NULL)
+        {
             delete next;
             next = NULL;
         }
@@ -38,104 +40,120 @@ void print(Node *head)
     cout << endl;
 }
 
-int getLength(Node* head) {
+int getLength(Node *head)
+{
     int len = 0;
-    Node* temp = head;
-    while (temp != NULL) {
+    Node *temp = head;
+    while (temp != NULL)
+    {
         len++;
         temp = temp->next;
     }
     return len;
 }
 
-void insertAtHead(Node* &head, Node* &tail, int d){
+void insertAtHead(Node *&head, Node *&tail, int d)
+{
 
-    //empty list
-    if(head == NULL) {
-        Node* temp = new Node(d);
+    // empty list
+    if (head == NULL)
+    {
+        Node *temp = new Node(d);
         head = temp;
         tail = temp;
         return;
     }
-    else {
-    Node* temp = new Node(d);
-    temp->next = head;
-    head->prev = temp;
-    head = temp;
+    else
+    {
+        Node *temp = new Node(d);
+        temp->next = head;
+        head->prev = temp;
+        head = temp;
     }
 }
 
-void insertAtTail(Node* &tail, Node* &head, int d){
-    if(tail == NULL) {
-        Node* temp = new Node(d);
+void insertAtTail(Node *&tail, Node *&head, int d)
+{
+    if (tail == NULL)
+    {
+        Node *temp = new Node(d);
         tail = temp;
         head = temp;
         return;
     }
-    else {
-    Node* temp = new Node(d);
-    tail->next = temp;
-    temp->prev = tail;
-    tail = temp;
+    else
+    {
+        Node *temp = new Node(d);
+        tail->next = temp;
+        temp->prev = tail;
+        tail = temp;
     }
 }
 
-void insertAtPosition(Node* &tail, Node* &head, int position, int d) {
+void insertAtPosition(Node *&tail, Node *&head, int position, int d)
+{
 
-    //insert at Start
-    if(position == 1) {
+    // insert at Start
+    if (position == 1)
+    {
         insertAtHead(head, tail, d);
         return;
     }
 
-    Node* temp = head;
+    Node *temp = head;
     int cnt = 1;
 
-    while(cnt < position-1) {
+    while (cnt < position - 1)
+    {
         temp = temp->next;
         cnt++;
     }
 
-    //insert at Last Position
-    if(temp->next == NULL) {
+    // insert at Last Position
+    if (temp->next == NULL)
+    {
         insertAtTail(tail, head, d);
         return;
     }
 
-    //creating a node for d
-    Node* nodeToInsert = new Node(d);
+    // creating a node for d
+    Node *nodeToInsert = new Node(d);
 
-    nodeToInsert -> next = temp -> next;
-    temp -> next -> prev = nodeToInsert;
-    temp -> next = nodeToInsert;
-    nodeToInsert -> prev = temp;
+    nodeToInsert->next = temp->next;
+    temp->next->prev = nodeToInsert;
+    temp->next = nodeToInsert;
+    nodeToInsert->prev = temp;
 }
 
-void deleteNode(int position, Node* & head) {
+void deleteNode(int position, Node *&head)
+{
 
-    //deleting first or start node
-    if (position == 1) {
-        Node* temp = head;
-        head = head -> next;
-        head -> prev = NULL;
+    // deleting first or start node
+    if (position == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+        head->prev = NULL;
         delete temp;
         return;
     }
-    else {
-        //deleting any middle node or last node
-        Node* curr = head;
-        Node* prev = NULL;
+    else
+    {
+        // deleting any middle node or last node
+        Node *curr = head;
+        Node *prev = NULL;
 
         int cnt = 1;
-        while(curr != NULL && cnt < position) {
+        while (curr != NULL && cnt < position)
+        {
             prev = curr;
-            curr = curr -> next;
+            curr = curr->next;
             cnt++;
         }
 
-        curr -> prev = NULL;
-        prev -> next = curr -> next;
-        curr -> next = NULL;
+        curr->prev = NULL;
+        prev->next = curr->next;
+        curr->next = NULL;
 
         delete curr;
     }
@@ -148,7 +166,7 @@ int main()
 
     print(head);
 
-    cout<<getLength(head)<<endl;
+    cout << getLength(head) << endl;
 
     insertAtHead(head, tail, 11);
     print(head);

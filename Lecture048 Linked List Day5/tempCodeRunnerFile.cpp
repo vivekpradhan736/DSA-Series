@@ -1,0 +1,2 @@
+UnSortedList(head);
+    print(newList);
